@@ -1,0 +1,47 @@
+# Node & Dependencies
+node_modules/
+.next/
+out/
+build/
+dist/
+.pnpm-store/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# AWS & CDK
+.cdk.staging/
+cdk.out/
+.aws-sam/
+
+# Environment & Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Exclude DOC folder as requested
+DOC/
+DOC
+
+

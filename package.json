@@ -1,0 +1,22 @@
+{
+  "name": "meditranslate-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MediTranslate — AWS-Native Medical Document Translation & Plain-Language Explanation System",
+  "author": "Suraj Jaiswal",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "infrastructure/*"
+  ],
+  "scripts": {
+    "dev:web": "npm --prefix apps/web run dev",
+    "dev:api": "cd apps/api && venv/bin/uvicorn app.main:app --reload --port 8000",
+    "build:web": "npm --prefix apps/web run build",
+    "lint": "npm --prefix apps/web run lint && npm --prefix infrastructure/cdk run lint",
+    "typecheck": "npm --prefix apps/web run typecheck && npm --prefix infrastructure/cdk run typecheck",
+    "test:backend": "cd apps/api && pytest",
+    "cdk:synth": "npm --prefix infrastructure/cdk run synth",
+    "cdk:deploy": "npm --prefix infrastructure/cdk run deploy"
+  }
+}

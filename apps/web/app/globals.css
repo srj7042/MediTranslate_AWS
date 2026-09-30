@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #F7F8FA;
+    color: #161E2D;
+    font-family: Inter, "Amazon Ember", system-ui, -apple-system, sans-serif;
+  }
+}
+
+.aws-card {
+  background-color: #FFFFFF;
+  border: 1px solid #D5DBDB;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.aws-btn-primary {
+  background-color: #FF9900;
+  color: #161E2D;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  transition: all 0.15s ease-in-out;
+}
+
+.aws-btn-primary:hover {
+  background-color: #EC8B00;
+  transform: translateY(-1px);
+}
+
+.aws-btn-secondary {
+  background-color: #161E2D;
+  color: #FFFFFF;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  transition: all 0.15s ease-in-out;
+}
+
+.aws-btn-secondary:hover {
+  background-color: #232F3E;
+}

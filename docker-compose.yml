@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # Supabase PostgreSQL local instance (or connect to hosted Supabase)
+  postgres:
+    image: postgres:15-alpine
+    container_name: meditranslate-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: meditranslate
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend API
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: meditranslate-api
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=dev
+      - DATABASE_URL=postgresql://postgres:postgrespassword@postgres:5432/meditranslate
+      - SUPABASE_URL=http://localhost:54321
+      - SUPABASE_SERVICE_ROLE_KEY=placeholder-service-key
+      - AWS_REGION=us-east-1
+      - S3_UPLOAD_BUCKET=meditranslate-dev-uploads
+      - S3_RESULT_BUCKET=meditranslate-dev-results
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # Next.js Frontend Web App
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: meditranslate-web
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_AWS_REGION=us-east-1
+      - NEXT_PUBLIC_COGNITO_USER_POOL_ID=us-east-1_example
+      - NEXT_PUBLIC_COGNITO_CLIENT_ID=exampleclientid
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
